@@ -1,0 +1,45 @@
+<%= simple_form_for([:admin, @customer]) do |f| %>
+    <% if customer.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+          <ul>
+            <% customer.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.input :name %>
+    </div>
+
+    <div class="field">
+      <%= f.input :address %>
+    </div>
+    <%= f.label :town_id %><br>
+    <%= f.collection_select :town_id, Town.all, :id, :name,
+                            {include_blank: true},
+                            {class: 'form-control',
+                             data: {
+                                 dynamic_selectable_url: dynamic_select_zones_path(':town_id'),
+                                 dynamic_selectable_target: '#customer_zone_id'
+                             }
+                            } %>
+    <%= f.label :zone_id %><br>
+    <%= f.collection_select :zone_id, @customer.town.try(:zones) || [], :id, :name,
+                            {:include_blank => true},
+                            {class: 'form-control',
+                             data: {
+                                 dynamic_selectable_url: dynamic_select_routes_path(':zone_id'),
+                                 dynamic_selectable_target: '#customer_route_id'
+                             }
+                            } %>
+
+    <%= f.label :route_id %><br>
+    <%= f.collection_select :route_id, @customer.zone.try(:routes) || [], :id, :name, {:include_blank => true}, {class: 'form-control'} %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

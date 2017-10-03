@@ -1,0 +1,16 @@
+<% skipped_meters.each do |meter| %>
+
+    <tr class="odd gradeX">
+
+      <td><%= meter[:meter_reader] %></td>
+      <td><%= meter[:meter_number] %></td>
+      <td><%= meter[:town] %></td>
+      <td><%= meter[:zone] %></td>
+      <td><%= meter[:customer] %></td>
+      <td><%= meter[:latitude] %></td>
+      <td><%= meter[:longitude] %></td>
+      <td><%= meter[:last_reading] %></td>
+    </tr>
+
+
+<% end %>

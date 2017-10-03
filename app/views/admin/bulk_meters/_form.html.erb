@@ -1,0 +1,18 @@
+<%= simple_form_for([:admin, @bulk_meter]) do |f| %>
+    <% if bulk_meter.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(bulk_meter.errors.count, "error") %> prohibited this bulk meter from being saved:</h2>
+          <ul>
+            <% bulk_meter.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.collection_select :town_id, Town.all, :id, :name,{:placeholder=>"Select Town"} %>
+    <%= f.input :sr, label: "Sr." %>
+    <%= f.input :location, label: "Location" %>
+    <%= f.input :meter_type, label: "Meter Type" %>
+    <%= f.input :size, label: "Size" %>
+    <%= f.input :serial_number, label: "Serial Number" %>
+<% end %>

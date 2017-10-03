@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-lg-12">
+    <header class="panel-heading" style="margin-bottom: 30px;">
+      Dashboard > Notifications
+    </header>
+    <div class="panel-body">
+      <div class="tab-content tasi-tab">
+        <div class="row">
+          <% if @notifications.count > 0 %>
+              <% @notifications.each do |notification| %>
+
+                  <div class="col-lg-6">
+                    <div class="panel">
+                      <div class="panel-body">
+                        <article class="media">
+                          <a class="pull-left thumb p-thumb">
+
+                          </a>
+                          <div class="media-body">
+                            <%= link_to notification.title,admin_notification_path(notification),{class: 'phead'} %>
+                            <p class="pull-right">
+                              <i class="icon_clock_alt"></i> <%= time_ago_in_words(notification.created_at) %></p>
+                            <p><%= notification.text %></p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+
+
+              <% end %>
+          <% else %>
+              <div class="well-sm">
+                <h4>There no new notifications</h4>
+              </div>
+          <% end %>
+        </div>
+
+
+      </div>
+    </div>
+    </section>
+
+    </section>
+  </div>
+</div>
+

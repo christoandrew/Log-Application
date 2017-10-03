@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @meter.customer_id %>
+</p>
+
+<p>
+  <strong>Meter number:</strong>
+  <%= @meter.meter_number %>
+</p>
+
+<p>
+  <strong>Posting group:</strong>
+  <%= @meter.posting_group %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @meter.zone_id %>
+</p>
+
+<%= link_to 'Edit', edit_admin_meter_path(@meter) %> |
+<%= link_to 'Back', admin_meters_path %>

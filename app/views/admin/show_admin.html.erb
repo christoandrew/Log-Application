@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @admin.name %>
+</p>
+
+<p>
+  <strong>:</strong>
+  <%= @admin.try(:town).try(:name) %>
+</p>
+
+<%= link_to 'Back', admin_admins_path %>

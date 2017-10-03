@@ -1,0 +1,23 @@
+<%= simple_form_for([:admin, @route]) do |f| %>
+    <%= f.error_notification %>
+
+
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.label :town_id %><br>
+      <%= f.collection_select :town_id, Town.all, :id, :name,
+                              {include_blank: true},
+                              {class:'form-control',
+                                  data: {
+                                  dynamic_selectable_url: dynamic_select_zones_path(':town_id'),
+                                  dynamic_selectable_target: '#route_zone_id'
+                              }
+                              } %>
+
+      <%= f.label :zone_id %><br>
+      <%= f.collection_select :zone_id, @route.town.try(:zones) || [], :id, :name, {:include_blank => true},{class:'form-control'} %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

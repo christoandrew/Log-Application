@@ -1,0 +1,53 @@
+.well.well-small
+  .pull-right{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
+    = link_to "Reset filters", reset_filterrific_url, :class => 'btn btn-default btn-sm'
+  .chardin_box{ :'data-position' => 'bottom', :'data-intro' => "will_paginate's entries info works as expected." }
+    = page_entries_info meter_readings, :model => 'meter_reading'
+  .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Spinner indicates update.' }
+    = render_filterrific_spinner
+= link_to "Export CSV", root_path(:format => :csv),{class: "btn btn-small btn-primary pull-right"}
+= link_to "Export PDF", root_path(:format => :pdf),{class: "btn btn-small btn-success pull-right"}
+%table.table.table-striped
+  %thead
+    %th= filterrific_sorting_link(@filterrific, :meter_number)
+    %th Customer
+    %th Address
+    %th Area
+    %th Zone
+    %th Unmetered Entry
+    %th Current Reading
+    %th Previous Reading
+    %th Posting Group
+    %th Reading Date
+    %th Current Quantity
+    %th Last Quantity
+    %th Lat
+    %th Long
+    %th Photo
+    %th Reading Code
+  %tbody
+  - meter_readings.each do |meter_reading|
+    - meter = Meter.where("id = ?", meter_reading.meter_id).limit(1)
+    -
+
+    %tr{style: try(reading_color(meter_reading.reading_code)}
+      %td= meter_reading.meter.meter_number
+      %td= meter_reading.meter.try(:customer).try(:name)
+      %td= meter_reading.meter.try(:customer).try(:address)
+      %td= meter_reading.meter.try(:customer).try(:town).try(:area_code)
+      %td= meter_reading.meter.try(:customer).try(:zone).try(:zone_code)
+      %td= meter_reading.is_metered_entry
+      %td= meter_reading.current_reading
+      %td= meter_reading.previous_reading
+      %td= meter_reading.meter.posting_group
+      %td= meter_reading.created_at
+      %td= meter_reading.quantity
+      %td= meter_reading.last_quantity
+      %td= meter_reading.latitude
+      %td= meter_reading.longitude
+      %td
+        %img.img-responsive.img-responsive(src="data:image/png;base64,#{meter_reading.photo}")
+
+      %td= meter_reading.reading_code
+.chardin_box{ :'data-position' => 'top', :'data-intro' => "will_paginate's paginator works as expected." }
+  = will_paginate meter_readings, renderer: BootstrapPagination::Rails

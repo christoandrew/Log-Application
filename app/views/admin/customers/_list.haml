@@ -1,0 +1,26 @@
+.well.well-small
+  .pull-right{ :'data-position' => 'bottom', :'data-intro' => 'Reset the filter settings to defaults.' }
+    = link_to "Reset filters", reset_filterrific_url, :class => 'btn btn-default btn-sm'
+  .chardin_box{ :'data-position' => 'bottom', :'data-intro' => "will_paginate's entries info works as expected." }
+    = page_entries_info customers, :model => 'customer'
+  .chardin_box{ :'data-position' => 'bottom', :'data-intro' => 'Spinner indicates update.' }
+    = render_filterrific_spinner
+= link_to "Export CSV", root_path(:format => :csv),{class: "btn btn-small btn-primary pull-right"}
+= link_to "Export PDF", root_path(:format => :pdf),{class: "btn btn-small btn-success pull-right"}
+%table.table.table-striped
+  %thead
+    %th= filterrific_sorting_link(@filterrific, :no)
+    %th Customer
+    %th Address
+    %th Area
+    %th Zone
+  %tbody
+  - customers.each do |customer|
+    %tr{}
+      %td= customer.no
+      %td= customer.name
+      %td= customer.address
+      %td= customer.town.name
+      %td= customer.zone.name
+.chardin_box{ :'data-position' => 'top', :'data-intro' => "will_paginate's paginator works as expected." }
+  = will_paginate customers, renderer: BootstrapPagination::Rails

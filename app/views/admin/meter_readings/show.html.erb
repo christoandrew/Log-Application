@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meter:</strong>
+  <%= @meter_reading.meter_id %>
+</p>
+
+<p>
+  <strong>Current reading:</strong>
+  <%= @meter_reading.current_reading %>
+</p>
+
+<p>
+  <strong>Previous reading:</strong>
+  <%= @meter_reading.previous_reading %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @meter_reading.photo %>
+</p>
+
+<p>
+  <strong>Reading code:</strong>
+  <%= @meter_reading.reading_code %>
+</p>
+
+<%= link_to 'Edit', edit_admin_meter_reading_path(@meter_reading) %> |
+<%= link_to 'Back', admin_meter_readings_path %>

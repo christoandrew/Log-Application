@@ -1,0 +1,130 @@
+<!--header start-->
+<header class="header white-bg">
+  <div class="toggle-nav">
+    <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+  </div>
+
+  <!--logo start-->
+  <%= image_tag 'logo1.png', class: 'logo', height: '60px' %>
+  <!--logo end-->
+  <div class="top-nav notification-row">
+    <!-- notificatoin dropdown start-->
+    <% if admin_signed_in? %>
+
+        <ul class="nav pull-right top-menu">
+          <!-- task notificatoin start -->
+          <!-- user login dropdown start-->
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+              <span class="username">Monthly Reports</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended">
+              <div class="log-arrow-up"></div>
+              <li>
+                <%= link_to report_monthly_skipped_path do %>
+                    <i class="icon_calendar"></i> Skipped Meters</a>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to report_monthly_performance_path do %>
+                    <i class="icon_calendar"></i> Reader Performance</a>
+                <% end %>
+              </li>
+
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+              <span class="username">Daily Reports</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended">
+              <div class="log-arrow-up"></div>
+              <li>
+                <%= link_to report_today_path do %>
+                    <i class="icon_calendar"></i> Today's Readings</a>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to report_today_faulty_path do %>
+                    <i class="icon_calendar"></i> Faulty and Unclear Meters</a>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to report_today_irregular_path do %>
+                    <i class="icon_calendar"></i> Irregular Readings</a>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <% if @notifications %>
+              <li id="alert_notification_bar" class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                  <i class="icon-bell-l"></i>
+                  <span class="badge bg-important"><%= @notifications.count %></span>
+                </a>
+                <ul class="dropdown-menu extended notification">
+                  <div class="notify-arrow notify-arrow-blue"></div>
+                  <li>
+                    <p class="blue">You have <%= @notifications.count %> new notifications</p>
+                  </li>
+                  <%
+                    notifications = Notification.where("is_read = false").order("created_at DESC").limit(5)
+                  %>
+                  <% notifications.each do |notification| %>
+
+                      <li>
+                        <%= link_to admin_notification_path(notification) do %>
+                            <span class="label label-warning"><i class="icon_pin"></i></span>
+                            <%= notification.title %>
+                            <span class="small italic pull-right"><%= time_ago_in_words(notification.created_at) %></span>
+                        <% end %>
+                      </li>
+
+                  <% end %>
+
+
+                  <li>
+                    <%= link_to "See all notifications", admin_notifications_path %>
+                  </li>
+                </ul>
+              </li>
+          <% end %>
+          <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+              <span class="username"><%= current_admin.email %></span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+              <div class="log-arrow-up"></div>
+              <li>
+                <% if MailingList.exists?(:admin_id => current_admin.id) %>
+                    <%= link_to 'Unsubscribe', admin_mailing_list_path(MailingList.find_by_admin_id(current_admin.id)),
+                                {:method => :delete, remote: true, :data => {:confirm => 'Are you sure?'}} %>
+                <% else %>
+                    <%= simple_form_for [:admin, MailingList.new], remote: true do |f| %>
+                        <%= f.hidden_field :admin_id, :value => current_admin.id %>
+                        <%= f.hidden_field :email, :value => current_admin.email %>
+                        <%= f.button :submit, :value => "Subscribe", class: "btn-block" %>
+                    <% end %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_admin_session_path, :method => :delete do %>
+                    <i class="icon_key_alt"></i> Log Out</a>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <!-- user login dropdown end -->
+        </ul>
+    <% end %>
+    <!-- notificatoin dropdown end-->
+  </div>
+</header>
+<!--header end-->

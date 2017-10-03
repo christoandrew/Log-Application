@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meter_id: 1
+  current_reading: 2016-10-05 11:07:07
+  previous_reading: 2016-10-05 11:07:07
+  photo: MyString
+  reading_code: 1
+
+two:
+  meter_id: 1
+  current_reading: 2016-10-05 11:07:07
+  previous_reading: 2016-10-05 11:07:07
+  photo: MyString
+  reading_code: 1

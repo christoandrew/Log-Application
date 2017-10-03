@@ -1,0 +1,1 @@
+json.array! @meter_readings, partial: 'admin/meter_readings/meter_reading', as: :meter_reading

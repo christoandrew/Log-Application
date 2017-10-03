@@ -1,0 +1,57 @@
+
+<div class="row">
+  <div class="">
+    <div class="panel">
+      <header class="panel-heading">
+        Dashboard > Meter Readings
+      </header>
+      <div class="well">
+        <%= form_for_filterrific @filterrific do |f| %>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group" data-position="top" , data-intro="Search by">
+                  <label>Search</label>
+                  <%= f.text_field :search_query, :class => 'filterrific-periodically-observed form-control' %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group" data-position="top" , data-intro="Search by">
+                  <label>Town</label>
+                  <%= f.select :with_town_id,
+                               @filterrific.select_options[:with_town_id],
+                               {:include_blank => '- Any -'}, {class: "form-control"} %>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group" data-position="top" , data-intro="Search by">
+                  <label>Zone</label>
+                  <%= f.select :with_town_id_zone_id,
+                               @filterrific.select_options[:with_town_id_zone_id],
+                               {:include_blank => '- Any -'}, {class: "form-control"} %>
+                </div>
+
+              </div>
+              <div class="col-md-3">
+                <div class="form-group" data-position="top" , data-intro="Search by">
+                  <label>Sort by</label>
+                  <%= f.select :sorted_by,
+                               @filterrific.select_options[:sorted_by],
+                               {},
+                               { :class => 'form-control' } %>
+                </div>
+              </div>
+            </div>
+
+            </div>
+        <% end %>
+
+        <div id="results">
+          <%= render :partial => 'list',
+                     :locals => {:meter_readings => @meter_readings} %>
+        </div>
+        </div>
+  </div>
+  <div>
+  </div>
+</div>
+

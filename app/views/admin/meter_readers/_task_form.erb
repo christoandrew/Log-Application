@@ -1,0 +1,29 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title">Form Tittle</h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for([:admin, Task.new], :url => url_for(controller: 'meter_readers', action: 'create_task')) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-inputs">
+              <%= f.select :town_id, options_for_select(@towns.collect { |town|
+                [town.name.titleize, town.id] }, 1), {}, {id: 'towns_select', class: 'form-control'} %>
+              <%= f.select :zone_id, options_for_select(@zones.collect { |zone|
+                [zone.name.titleize, zone.id] }, 0), {}, {id: 'zones_select', class: 'form-control'} %>
+              <%= f.input :status %>
+
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

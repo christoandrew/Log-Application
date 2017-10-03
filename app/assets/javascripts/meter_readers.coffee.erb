@@ -1,0 +1,12 @@
+$ ->
+  $(document).on 'change', '#towns_select', (evt) ->
+    $.ajax "1/update_zones",
+      type: 'GET'
+      dataType: 'script'
+      data: {
+        town_id: $("#towns_select option:selected").val()
+      }
+      error: (jqXHR, textStatus, errorThrown) ->
+        console.log("AJAX Error: #{textStatus}")
+      success: (data, textStatus, jqXHR) ->
+        console.log(JSON.stringify(jqXHR))

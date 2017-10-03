@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  town_id: 1
+  sr: 1
+  location: MyString
+  meter_type: MyString
+  size: 1
+  serial_number: MyString
+
+two:
+  town_id: 1
+  sr: 1
+  location: MyString
+  meter_type: MyString
+  size: 1
+  serial_number: MyString

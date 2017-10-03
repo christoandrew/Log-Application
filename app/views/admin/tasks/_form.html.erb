@@ -1,0 +1,30 @@
+<%= simple_form_for([:admin, @task]) do |f| %>
+    <%= f.error_notification %>
+
+    <d <%= f.label :town_id %><br>
+    <%= f.collection_select :town_id, Town.all, :id, :full_town_code,
+                            {include_blank: true},
+                            {class: 'form-control',
+                             data: {
+                                 dynamic_selectable_url: dynamic_select_zones_path(':town_id'),
+                                 dynamic_selectable_target: '#task_zone_id'
+                             }
+                            } %>
+    <%= f.label :zone_id %><br>
+    <%= f.collection_select :zone_id, @task.town.try(:zones) || [], :id, :full_zone_code,
+                            {:include_blank => true},
+                            {class: 'form-control',
+                             data: {
+                                 dynamic_selectable_url: dynamic_select_routes_path(':zone_id'),
+                                 dynamic_selectable_target: '#task_route_id'
+                             }
+                            } %>
+
+    <%= f.label :route_id %><br>
+    <%= f.collection_select :route_id, @task.zone.try(:routes) || [], :id, :name, {:include_blank => true}, {class: 'form-control'} %>
+    <%= f.association :meter_reader %>
+    <%= f.input :status %>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

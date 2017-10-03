@@ -1,0 +1,1 @@
+json.partial! 'admin/zones/zone', zone: @zone

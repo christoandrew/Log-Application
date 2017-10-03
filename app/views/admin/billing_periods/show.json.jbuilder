@@ -1,0 +1,1 @@
+json.partial! "admin/billing_periods/billing_period", billing_period: @billing_period

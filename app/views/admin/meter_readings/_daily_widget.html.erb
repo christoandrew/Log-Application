@@ -1,0 +1,57 @@
+<div class="row state-overview">
+  <div class="col-lg-3">
+    <section class="panel">
+      <div class="symbol">
+        <i class="icon_globe"></i>
+      </div>
+      <div class="value">
+        <h1><%= MeterReading.where('created_at >= ?', Time.zone.now.beginning_of_day).count %></h1>
+        <p>Read Meters</p>
+      </div>
+    </section>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <section class="panel">
+      <div class="symbol">
+        <i class="icon_globe"></i>
+      </div>
+      <div class="value">
+        <%
+          sql = "select meters.* from meters where not exists(select null from meter_readings where
+          meter_readings.meter_id = meters.id and meter_readings.created_at >= '#{Time.zone.now.beginning_of_day}')"
+          skipped_meters =Meter.find_by_sql(sql)
+        %>
+        <h1><%= skipped_meters.count %></h1>
+        <p>Skipped Meters</p>
+      </div>
+    </section>
+  </div>
+  <div class="col-lg-3">
+    <section class="panel">
+      <div class="symbol">
+        <i class="icon_globe"></i>
+      </div>
+      <div class="value">
+        <h1><%= MeterReading.where('created_at >= ?', Time.zone.now.beginning_of_day).count %></h1>
+        <p>Meter Readings</p>
+      </div>
+    </section>
+  </div>
+  <div class="col-lg-3">
+    <section class="panel">
+      <div class="symbol">
+        <i class="icon_globe"></i>
+      </div>
+      <div class="value">
+        <h1><%= MeterReading.where('created_at >= ? AND regular=false', Time.zone.now.beginning_of_day).count %></h1>
+        <p>Irregular Readings</p>
+      </div>
+    </section>
+  </div>
+
+
+  <div class="col-lg-3 pull-right">
+    <%= link_to 'Export PDF', report_today_url(format: :pdf), {class: 'btn btn-primary pull-right', style: 'margin-bottom:30px;'} %>
+    <%= link_to 'Export CSV', report_today_url(format: :csv), {class: 'btn btn-primary pull-right', style: 'margin-bottom:30px;'} %>
+  </div>
+</div>

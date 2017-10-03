@@ -1,0 +1,16 @@
+<%= simple_form_for([:admin, @meter_reading]) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :meter_id %>
+      <%= f.association :billing_period %>
+      <%= f.input :current_reading %>
+      <%= f.input :previous_reading %>
+      <%= f.input :photo %>
+      <%= f.input :reading_code %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

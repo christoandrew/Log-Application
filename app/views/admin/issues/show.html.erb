@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @issue.title %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @issue.text %>
+</p>
+
+<p>
+  <strong>Meter reader:</strong>
+  <%= @issue.meter_reader_id %>
+</p>
+
+<%= link_to 'Edit', edit_issue_path(@issue) %> |
+<%= link_to 'Back', issues_path %>

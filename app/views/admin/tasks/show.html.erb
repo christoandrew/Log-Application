@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Town:</strong>
+  <%= @task.town_id %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @task.zone_id %>
+</p>
+
+<p>
+  <strong>Route:</strong>
+  <%= @task.route_id %>
+</p>
+
+<p>
+  <strong>Meter reader:</strong>
+  <%= @task.meter_reader_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<%= link_to 'Edit', edit_admin_task_path(@task) %> |
+<%= link_to 'Back', admin_tasks_path %>

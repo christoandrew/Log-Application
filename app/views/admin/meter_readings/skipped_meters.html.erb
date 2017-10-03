@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+
+
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Monthly Report > Skipped Meters
+      </header>
+      <div class="">
+        <h3>Select a billing period </h3><%= collection_select(:billing_period, :billing_period_id, @billing_periods, :id, :name_with_initial, prompt: true)  %>
+      </div>
+
+
+      <script type="text/javascript">
+        $("#billing_period_billing_period_id").change(function () {
+          update_versions_div(this.value);
+        });
+        function update_versions_div(billing_period) {
+          jQuery.ajax({
+            url: "/admin/meter_readings/report/monthly/skipped",
+            type: "GET",
+            data: {"billing_period":billing_period},
+            dataType: "html",
+            success: function (data) {
+              jQuery("body").html(data);
+              console.log(JSON.stringify(data));
+            }
+          });
+        }
+
+      </script>
+      <table class="table table-striped border-top" id="customers_tabl">
+        <thead>
+        <th>Name Of Meter Reader</th>
+        <th>Meter Number</th>
+        <th>Town</th>
+        <th>Zone</th>
+        <th>Customer</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Date of Last Reading</th>
+        </thead>
+        <tbody>
+        <div id="skipped_meters">
+          <%= render partial: 'skipped_table', locals: {skipped_meters: @skipped_data} %>
+        </div>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+<script>
+  // begin second table
+  $('#customers_tabl').dataTable({
+    "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+    "sPaginationType": "bootstrap",
+    "oLanguage": {
+      "sLengthMenu": "_MENU_ per page",
+      "oPaginate": {
+        "sPrevious": "Prev",
+        "sNext": "Next"
+      }
+    },
+    "aoColumnDefs": [{
+      'bSortable': false,
+      'aTargets': [0]
+    }]
+  });
+  jQuery('#customers_table_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+  jQuery('#customers_table_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+
+</script>

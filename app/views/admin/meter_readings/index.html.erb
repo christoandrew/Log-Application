@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Meter Readings
+      </header>
+      <table class="table table-striped border-top" id="customers_table">
+        <thead>
+        <th>Meter</th>
+        <th>Current reading</th>
+        <th>Previous reading</th>
+        <th>Quantity</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Photo</th>
+        <th>Reading code</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <% @meter_readings.each do |meter_reading| %>
+            <tr class="odd gradeX">
+              <td><%= meter_reading.try(:meter).try(:meter_number) %></td>
+              <td><%= meter_reading.current_reading %></td>
+              <td><%= meter_reading.previous_reading %></td>
+              <td><%= meter_reading.quantity %></td>
+              <td><%= meter_reading.latitude %></td>
+              <td><%= meter_reading.longitude %></td>
+              <td><img src="data:image/png;base64,<%= meter_reading.photo %>"/></td>
+              <td><%= meter_reading.reading_code %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to admin_meter_reading_path(meter_reading), {class: 'btn btn-primary'} do %>
+                      <i class="icon_folder-open_alt"></i>
+                  <% end %>
+                  <%= link_to edit_admin_meter_reading_path(meter_reading), {class: 'btn btn-success'} do %>
+                      <i class="icon_pencil-edit_alt"></i>
+                  <% end %>
+                  <%= link_to admin_meter_reading_path(meter_reading), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <i class="icon_close_alt"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>

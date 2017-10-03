@@ -1,0 +1,24 @@
+<div class="login-form">
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="login-wrap">
+        <p class="login-img"><%= image_tag 'logo1.png', height: '80px' %></p>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+          <%= f.text_field :email, {class: "form-control", placeholder: "Email", autocomplete: "off"} %>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+          <%= f.password_field :password, {class: "form-control", placeholder: "Password", autocomplete: "off"} %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+        <% end -%>
+
+
+        <%= f.submit "Login", class: "btn btn-primary btn-lg btn-block" %>
+      </div>
+
+  <% end %>
+</div>

@@ -1,0 +1,17 @@
+<%= simple_form_for([:admin, @meter]) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.association :customer %>
+      <%= f.input :meter_number %>
+      <%= f.input :posting_group %>
+      <%= f.input :latitude %>
+      <%= f.input :longitude %>
+      <%= f.association :zone %>
+      <%= f.association :route %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

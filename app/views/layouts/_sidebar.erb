@@ -1,0 +1,97 @@
+<!--sidebar start-->
+<aside style="overflow-y:auto ">
+  <div id="sidebar" class="nav-collapse ">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu">
+      <li>
+        <%= link_to root_path do %>
+            <i class="icon_house_alt"></i>
+            <span>Dashboard</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_billing_periods_path do %>
+            <i class="icon_calendar"></i>
+            <span>Billing Periods</span>
+        <% end %>
+        </a>
+      </li>
+
+      <% if current_admin.admin? %>
+          <li>
+            <%= link_to admin_admins_path do %>
+                <i class="icon_calendar"></i>
+                <span>Users</span>
+            <% end %>
+            </a>
+          </li>
+      <% end %>
+      <li>
+        <%= link_to admin_customers_path do %>
+            <i class="icon_group"></i>
+            <span>Customers</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_meter_readers_path do %>
+            <i class="icon_group"></i>
+            <span>CSAs</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_tasks_path do %>
+            <i class="icon_book_alt"></i>
+            <span>Assignments</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_towns_path do %>
+            <i class="icon_building_alt"></i>
+            <span>Towns</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_zones_path do %>
+            <i class="icon_map_alt"></i>
+            <span>Zones</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_routes_path do %>
+            <i class="icon_drive_alt"></i>
+            <span>Routes</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_meters_path do %>
+            <i class="icon_clock_alt"></i>
+            <span>Meters</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_bulk_meters_path do %>
+            <i class="icon_clock_alt"></i>
+            <span>Bulk Meters</span>
+        <% end %>
+        </a>
+      </li>
+      <li>
+        <%= link_to admin_issues_path do %>
+            <i class="icon_cogs"></i>
+            <span>Issues</span>
+        <% end %>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</aside>
+<!--sidebar end-->

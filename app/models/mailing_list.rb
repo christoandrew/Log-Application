@@ -1,0 +1,3 @@
+class MailingList < ApplicationRecord
+
+end

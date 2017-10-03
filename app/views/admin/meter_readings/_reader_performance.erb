@@ -1,0 +1,11 @@
+<% data.each do |performance| %>
+    <tr class="odd gradeX">
+      <td><%= performance[:name] %></td>
+      <td><%= performance[:town] %></td>
+      <td><%= performance[:zone] %></td>
+      <td><%= performance[:read_meters] %></td>
+      <td><%= performance[:skipped_meters] %></td>
+      <td><%= performance[:irregular_readings] %></td>
+      <td><%= performance[:route_accuracy] %></td>
+    </tr>
+<% end %>

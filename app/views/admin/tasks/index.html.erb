@@ -1,0 +1,99 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'New Task', new_admin_task_path, {class: 'btn btn-primary pull-right', style: 'margin-bottom:30px;'} %>
+<a href="#myModal" data-toggle="modal" class="btn btn-primary pull-right">
+  Import from CSV
+</a>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title">Import Tasks</h4>
+      </div>
+      <div class="modal-body">
+
+        <%=form_tag import_admin_tasks_path, {:role=>"form", :multipart=>true}  do |f| %>
+            <div class="form-group">
+              <%= label_tag :file %>
+              <%= file_field_tag :file %>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Meter Readers > Assignments
+      </header>
+      <table class="table table-striped border-top" id="task_table">
+        <thead>
+        <th>Town</th>
+        <th>Zone</th>
+        <th>Route</th>
+        <th>Meter reader</th>
+        <th>Status</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <% @tasks.each do |task| %>
+            <tr class="odd gradeX">
+              <td><%= task.try(:town).try(:name) %></td>
+              <td><%= task.try(:zone).try(:name) %></td>
+              <td><%= task.try(:route).try(:name) %></td>
+              <td><%= task.try(:meter_reader).try(:name) %></td>
+              <td><%= task.status %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to admin_task_path(task), {class: 'btn btn-primary'} do %>
+                      <i class="icon_folder-open_alt"></i>
+                  <% end %>
+                  <%= link_to edit_admin_task_path(task), {class: 'btn btn-success'} do %>
+                      <i class="icon_pencil-edit_alt"></i>
+                  <% end %>
+                  <%= link_to admin_task_path(task), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <i class="icon_close_alt"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  $(document).on("turbolinks page:reload",function () {
+    // begin second table
+    $('#task_table').dataTable({
+      "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+      "sPaginationType": "bootstrap",
+      "oLanguage": {
+        "sLengthMenu": "_MENU_ per page",
+        "oPaginate": {
+          "sPrevious": "Prev",
+          "sNext": "Next"
+        }
+      },
+      "aoColumnDefs": [{
+        'bSortable': false,
+        'aTargets': [0]
+      }]
+    });
+    jQuery('#customers_table_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+    jQuery('#customers_table_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+
+  });
+
+</script>

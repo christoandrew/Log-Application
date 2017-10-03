@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  meter_number: MyString
+  posting_group: MyString
+  quantity: 1
+  zone_id: 1
+
+two:
+  customer_id: 1
+  meter_number: MyString
+  posting_group: MyString
+  quantity: 1
+  zone_id: 1

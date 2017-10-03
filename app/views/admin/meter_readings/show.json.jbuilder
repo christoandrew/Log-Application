@@ -1,0 +1,1 @@
+json.partial! "admin/meter_readings/meter_reading", meter_reading: @meter_reading

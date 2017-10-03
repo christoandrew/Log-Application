@@ -1,0 +1,59 @@
+<%= render partial: 'daily_widget' %>
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Meter Readings
+      </header>
+      <table class="table table-striped border-top" id="customers_table">
+        <thead>
+        <th>Date and Time</th>
+        <th>Name Of Meter Reader</th>
+        <th>Meter Number</th>
+        <th>Customer Account Number</th>
+        <th>Previous Consumption</th>
+        <th>Current Consumption</th>
+        <th>Current Reading</th>
+        <th>Expected Consumption</th>
+        </thead>
+        <tbody>
+        <% @irregular_readings.each do |meter_reading| %>
+            <tr class="odd gradeX">
+              <td><%= meter_reading.created_at %></td>
+              <td><%= meter_reading.try(:meter_reader).try(:name) %></td>
+              <td><%= meter_reading.try(:meter).try(:meter_number) %></td>
+              <td><%= meter_reading.try(:meter).try(:meter_number) %></td>
+              <td><%= meter_reading.previous_consumption %></td>
+              <td><%= meter_reading.quantity %></td>
+              <td><%= meter_reading.current_reading %></td>
+              <td><%= meter_reading.expected_range %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+<script>
+  // begin second table
+  $('#customers_table').dataTable({
+    "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+    "sPaginationType": "bootstrap",
+    "oLanguage": {
+      "sLengthMenu": "_MENU_ per page",
+      "oPaginate": {
+        "sPrevious": "Prev",
+        "sNext": "Next"
+      }
+    },
+    "aoColumnDefs": [{
+      'bSortable': false,
+      'aTargets': [0]
+    }]
+  });
+  jQuery('#customers_table_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+  jQuery('#customers_table_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+
+</script>

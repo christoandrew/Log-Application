@@ -1,0 +1,1 @@
+json.array! @zones, partial: 'admin/customers/townzone', as: :zone

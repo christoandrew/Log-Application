@@ -1,0 +1,1 @@
+json.array! @customers, partial: 'admin/customers/customer', as: :customer

@@ -1,0 +1,1 @@
+json.array! @billing_periods, partial: 'admin/billing_periods/billing_period', as: :billing_period

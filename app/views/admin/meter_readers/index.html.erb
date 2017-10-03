@@ -1,0 +1,87 @@
+
+<%= link_to 'New CSA', new_admin_meter_reader_path, {class: 'btn btn-primary pull-right', style: 'margin-bottom:30px;'} %>
+<a href="#myModal" data-toggle="modal" class="btn btn-primary pull-right">
+  Import from CSV
+</a>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title">Import Meters</h4>
+      </div>
+      <div class="modal-body">
+
+        <%=form_tag import_admin_meter_readers_path, {:role=>"form", :multipart=>true}  do |f| %>
+            <div class="form-group">
+              <%= label_tag :file %>
+              <%= file_field_tag :file %>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > CSAs
+      </header>
+
+      <table class="table table-striped border-top" id="meter_readers_table">
+        <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <% @meter_readers.each do |meter_reader| %>
+            <tr class="odd gradeX">
+              <td><%= meter_reader.name %></td>
+              <td><%= meter_reader.email %></td>
+              <td><%= meter_reader.username %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to edit_admin_meter_reader_path(meter_reader), {class: 'btn btn-success'} do %>
+                      <i class="icon_pencil-edit_alt"></i>
+                  <% end %>
+                  <%= link_to admin_meter_reader_path(meter_reader), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <i class="icon_close_alt"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+<script>
+  // begin second table
+  $('#meter_readers_table').dataTable({
+    "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+    "sPaginationType": "bootstrap",
+    "oLanguage": {
+      "sLengthMenu": "_MENU_ per page",
+      "oPaginate": {
+        "sPrevious": "Prev",
+        "sNext": "Next"
+      }
+    },
+    "aoColumnDefs": [{
+      'bSortable': false,
+      'aTargets': [0]
+    }]
+  });
+  jQuery('#meter_readers_table_table_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+  jQuery('#meter_readers_table_table_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+
+</script>

@@ -1,0 +1,1 @@
+json.array! @towns, partial: 'admin/towns/town', as: :town

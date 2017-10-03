@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Towns
+      </header>
+      <div class="panel-body">
+        <%= link_to 'New Town', new_admin_town_path, {class: 'btn btn-success pull-right',
+                                                              style: 'margin-bottom:10px;margin-right:10px;margin-left:10px'} %>
+        &nbsp;
+        <a href="#myModal" data-toggle="modal" class="btn btn-primary pull-right">
+          Import from CSV
+        </a>
+
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Import Towns</h4>
+              </div>
+              <div class="modal-body">
+
+                <%=form_tag import_admin_towns_path, {:role=>"form", :multipart=>true}  do |f| %>
+                    <div class="form-group">
+                      <label for="exampleInputFile">File input</label>
+                      <%= file_field_tag :file %>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped border-top" id="customers_table">
+        <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Area code</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <% @towns.each do |town| %>
+            <tr>
+              <td><%= town.id %></td>
+              <td><%= town.name %></td>
+              <td><%= town.area_code %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to admin_town_path(town), {class: 'btn btn-primary'} do %>
+                      <i class="icon_folder-open_alt"></i>
+                  <% end %>
+                  <%= link_to edit_admin_town_path(town), {class: 'btn btn-success'} do %>
+                      <i class="icon_pencil-edit_alt"></i>
+                  <% end %>
+                  <%= link_to admin_town_path(town), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <i class="icon_close_alt"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  $(document).on('ready turbolinks:reload', function () {
+    // begin second table
+    $('#customers_table').dataTable({
+      "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+      "sPaginationType": "bootstrap",
+      "oLanguage": {
+        "sLengthMenu": "_MENU_ per page",
+        "oPaginate": {
+          "sPrevious": "Prev",
+          "sNext": "Next"
+        }
+      },
+      "aoColumnDefs": [{
+        'bSortable': false,
+        'aTargets': [0]
+      }]
+    });
+    jQuery('#customers_table_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+    jQuery('#customers_table_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+  });
+</script>

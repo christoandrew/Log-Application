@@ -1,0 +1,66 @@
+<%= link_to 'New Issue', new_admin_issue_path, {class: 'btn btn-primary pull-right', style: 'margin-bottom:30px;'} %>
+<div class="row">
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading" style="margin-bottom: 30px;">
+        Dashboard > Issues
+      </header>
+      <table class="table table-striped border-top" id="customers_table">
+        <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Posted By</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <% @issues.each do |issue| %>
+            <tr class="odd gradeX">
+              <td><%= issue.id %></td>
+              <td><%= issue.title %></td>
+              <td><%= issue.text %></td>
+              <td><%= issue.try(:meter_reader).try(:name) %></td>
+              <td>
+                <div class="btn-group">
+                  <%= link_to admin_issue_path(issue), {class: 'btn btn-primary'} do %>
+                      <i class="icon_folder-open_alt"></i>
+                  <% end %>
+                  <%= link_to edit_admin_issue_path(issue), {class: 'btn btn-success'} do %>
+                      <i class="icon_pencil-edit_alt"></i>
+                  <% end %>
+                  <%= link_to admin_issue_path(issue), class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <i class="icon_close_alt"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  // begin second table
+  $('#billing_periods').dataTable({
+    "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+    "sPaginationType": "bootstrap",
+    "oLanguage": {
+      "sLengthMenu": "_MENU_ per page",
+      "oPaginate": {
+        "sPrevious": "Prev",
+        "sNext": "Next"
+      }
+    },
+    "aoColumnDefs": [{
+      'bSortable': false,
+      'aTargets': [0]
+    }]
+  });
+  jQuery('#billing_periods_wrapper').find('.dataTables_filter input').addClass("form-control"); // modify table search input
+  jQuery('#billing_periods_wrapper').find('.dataTables_length select').addClass("form-control"); // modify table per page dropdown
+
+
+</script>

@@ -1,0 +1,1 @@
+$redis = Redis::Namespace.new("trumeter", :redis => Redis.new)

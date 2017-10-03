@@ -1,0 +1,21 @@
+%h1 Listing mailing_lists
+
+%table
+  %thead
+    %tr
+      %th Customer
+      %th
+      %th
+      %th
+
+  %tbody
+    - @mailing_lists.each do |mailing_list|
+      %tr
+        %td= mailing_list.customer
+        %td= link_to 'Show', mailing_list
+        %td= link_to 'Edit', edit_mailing_list_path(mailing_list)
+        %td= link_to 'Destroy', mailing_list, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Mailing list', new_mailing_list_path

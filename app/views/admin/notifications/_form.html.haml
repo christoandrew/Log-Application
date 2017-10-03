@@ -1,0 +1,19 @@
+= simple_form_for [:admin,@notification] do |f|
+  - if @notification.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@notification.errors.count, "error")} prohibited this notification from being saved:"
+      %ul
+        - @notification.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :text
+    = f.text_area :text
+  .field
+    = f.label :is_read
+    = f.check_box :is_read
+  .actions
+    = f.submit 'Save'

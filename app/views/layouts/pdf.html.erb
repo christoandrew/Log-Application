@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF</title>
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+</head>
+<body>
+
+<div class='container'>
+  <%= wicked_pdf_image_tag('logo1.png', height: '100px') %>
+  <%= yield %>
+</div>
+
+</body>
+</html>
